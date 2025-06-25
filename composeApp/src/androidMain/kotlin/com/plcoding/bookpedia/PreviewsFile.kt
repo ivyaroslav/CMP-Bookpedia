@@ -12,6 +12,7 @@ import com.plcoding.bookpedia.book.presentation.book_list.BookListScreen
 import com.plcoding.bookpedia.book.presentation.book_list.BookListState
 import com.plcoding.bookpedia.book.presentation.book_list.components.BookSearchBar
 
+
 @Preview
 @Composable
 private fun BookSearchBarPreview() {
@@ -30,12 +31,13 @@ private fun BookSearchBarPreview() {
     }
 }
 
+
 private val books = (1..100).map {
     Book(
         id = it.toString(),
         title = "Book $it",
-        imageUrl = "https://test.com",
-        authors = listOf("Philipp Lackner"),
+        imageUrl = "",
+        authors = listOf("Yaroslav Ivanitsa"),
         description = "Description $it",
         languages = emptyList(),
         firstPublishYear = null,
@@ -49,12 +51,14 @@ private val books = (1..100).map {
 @Preview
 @Composable
 private fun BookListScreenPreview() {
-    BookListScreen(
-        state = BookListState(
-            searchResults = books
-        ),
-        onAction = {}
-    )
+
+        BookListScreen(
+            state = BookListState(
+                searchResults = books
+            ),
+            onAction = {}
+        )
+
 }
 
 

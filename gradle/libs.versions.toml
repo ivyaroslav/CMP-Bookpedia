@@ -31,6 +31,8 @@ material3Jvmstubs = "1.4.0-alpha16"
 coreKtx = "1.16.0"
 foundationAndroid = "1.8.3"
 uiTextAndroid = "1.8.3"
+uiGraphicsAndroid = "1.8.3"
+uiAndroid = "1.8.3"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -81,6 +83,8 @@ androidx-material3-jvmstubs = { group = "androidx.compose.material3", name = "ma
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
 androidx-ui-text-android = { group = "androidx.compose.ui", name = "ui-text-android", version.ref = "uiTextAndroid" }
+androidx-ui-graphics-android = { group = "androidx.compose.ui", name = "ui-graphics-android", version.ref = "uiGraphicsAndroid" }
+androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", version.ref = "uiAndroid" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

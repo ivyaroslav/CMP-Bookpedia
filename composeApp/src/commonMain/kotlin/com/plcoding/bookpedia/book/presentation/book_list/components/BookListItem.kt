@@ -4,12 +4,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Icon
+
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.*
@@ -101,7 +102,7 @@ fun BookListItem(
             ) {
                 Text(
                     text = book.title,
-                    style = MaterialTheme.typography.subtitle1,
+                    style = MaterialTheme.typography.bodyMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -109,7 +110,7 @@ fun BookListItem(
                     authorName ->
                     Text(
                         text = authorName,
-                        style = MaterialTheme.typography.body1,
+                        style = MaterialTheme.typography.bodyMedium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -121,7 +122,7 @@ fun BookListItem(
                     ) {
                         Text (
                             text = "${round(rating * 10) / 10.0}",
-                            style = MaterialTheme.typography.body1
+                            style = MaterialTheme.typography.bodyMedium
                         )
                         Icon (
                             imageVector = Icons.Default.Star,

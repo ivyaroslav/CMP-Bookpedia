@@ -8,11 +8,17 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
-import androidx.compose.material.*
-
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+
+
 
 
 import androidx.compose.runtime.Composable
@@ -45,7 +51,7 @@ fun BookSearchBar (
             value = searchQuery,
             onValueChange = onSearchQueryChange,
             shape = RoundedCornerShape(100),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
+            colors = OutlinedTextFieldDefaults.colors(
                 cursorColor = DarkBlue,
                 focusedBorderColor = SandYellow
             ),

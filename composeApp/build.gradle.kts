@@ -51,7 +51,7 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -125,6 +125,8 @@ dependencies {
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.foundation.android)
     implementation(libs.androidx.ui.text.android)
+    implementation(libs.androidx.ui.graphics.android)
+    implementation(libs.androidx.ui.android)
     debugImplementation(compose.uiTooling)
 
 
