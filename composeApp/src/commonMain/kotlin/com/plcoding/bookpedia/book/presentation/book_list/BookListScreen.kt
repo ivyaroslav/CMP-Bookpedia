@@ -2,24 +2,29 @@ package com.plcoding.bookpedia.book.presentation.book_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Surface
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.Tab
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
+
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.style.TextAlign
 import cmp_bookpedia.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cmp_bookpedia.composeapp.generated.resources.favorites
 import cmp_bookpedia.composeapp.generated.resources.search_results
+import cmp_bookpedia.composeapp.generated.resources.no_search_results
 import com.plcoding.bookpedia.book.domain.Book
+import com.plcoding.bookpedia.book.presentation.book_list.components.BookList
 import com.plcoding.bookpedia.book.presentation.book_list.components.BookSearchBar
 import com.plcoding.bookpedia.core.presentation.DarkBlue
 import com.plcoding.bookpedia.core.presentation.DesertWhite
@@ -29,7 +34,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun BookListScreenRoot(
-
+    viewModel: BookListViewModel = koinViewModel(),
     onBookClick: (Book) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -52,13 +57,19 @@ fun BookListScreen(
     state: BookListState,
     onAction: (BookListAction) -> Unit,
 ) {
+    val pagerState = rememberPagerState { 2 }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val searchResultsListState = rememberLazyListState()
+    val favoriteBooksListState = rememberLazyListState()
+    LaunchedEffect(state.searchResults) {
+        searchResultsListState.animateScrollToItem(0)
+    }
     Column(modifier = Modifier
         .fillMaxSize()
         .background(DarkBlue)
         .statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
-    ){
+    ) {
         BookSearchBar(
             searchQuery = state.searchQuery,
             onSearchQueryChange = {
@@ -123,8 +134,83 @@ fun BookListScreen(
                         )
                     }
 
+
                 }
             }
+        }
+        Spacer(modifier = Modifier.height(4.dp))
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) { pageIndex ->
+            Box (
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                when(pageIndex ) {
+                    0 -> {
+                        if(state.isLoading) {
+                            CircularProgressIndicator()
+                        } else {
+                            when {
+                                state.errorMessage != null -> {
+                                    Text(
+                                        text = state.errorMessage.asString(),
+                                        textAlign = TextAlign.Center,
+                                        style = MaterialTheme.typography.headlineSmall,
+                                        color = MaterialTheme.colorScheme.error
+
+                                    )
+                                }
+                                state.searchResults.isEmpty() -> {
+                                    Text(
+                                        text = stringResource(Res.string.no_search_results),
+                                        textAlign = TextAlign.Center,
+                                        style = MaterialTheme.typography.headlineSmall,
+                                        color = MaterialTheme.colorScheme.error
+
+                                    )
+                                }
+                                else -> {
+                                    BookList(
+                                        books = state.searchResults,
+                                        onBookClick = {
+                                            onAction(BookListAction.OnBookClick(it))
+                                        },
+                                        modifier = Modifier.fillMaxSize(),
+                                        scrollState = searchResultsListState
+                                    )
+                                }
+                            }
+
+                        }
+
+                    }
+                    1 -> {
+                        if(state.favoriteBooks.isEmpty()) {
+                            Text(
+                                text = stringResource(Res.string.no_search_results),
+                                textAlign = TextAlign.Center,
+                                style = MaterialTheme.typography.headlineSmall
+                            )
+                        } else {
+                            BookList(
+                                books = state.favoriteBooks,
+                                onBookClick = {
+                                    onAction(BookListAction.OnBookClick(it))
+                                },
+                                modifier = Modifier.fillMaxSize(),
+                                scrollState = favoriteBooksListState
+                            )
+                        }
+                    }
+                }
+            }
+
+
         }
     }
 }
