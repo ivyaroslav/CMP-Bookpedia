@@ -17,6 +17,6 @@ data class SearchedBookDto(
     @SerialName("ratings_average") val ratingsAverage: Double? = null,
     @SerialName("ratings_count") val ratingsCount: Int? = null,
     @SerialName("number_of_pages_median") val numPagesMedian: Int? = null,
-    @SerialName("edition_count") val numEditions: Double? = null,
+    @SerialName("edition_count") val numEditions: Int? = null,
 )
 
