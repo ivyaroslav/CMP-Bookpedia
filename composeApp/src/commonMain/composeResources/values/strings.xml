@@ -5,6 +5,7 @@
     <string name="search_results">Search Results</string>
     <string name="favorites">Favorites</string>
     <string name="no_search_results">Oopsie, there are no books matching the query</string>
+    <string name="no_favorite_books">Oopsie, there are no favorite books yet</string>
     <string name="error_disk_full">Oopsie, it seems your disk is full</string>
     <string name="error_unknown">Oopsie, something went wrong</string>
     <string name="error_request_timeout">The request timed out</string>

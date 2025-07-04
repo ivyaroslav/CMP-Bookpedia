@@ -117,7 +117,7 @@ fun BookListItem(
                         overflow = TextOverflow.Ellipsis
                     )
                 }
-                book.ratingAverage?.let { rating ->
+                book.averageRating?.let { rating ->
                     Row(
                         modifier = Modifier,
                         verticalAlignment = Alignment.CenterVertically

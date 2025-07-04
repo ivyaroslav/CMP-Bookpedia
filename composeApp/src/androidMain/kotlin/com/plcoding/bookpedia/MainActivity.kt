@@ -14,9 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App(
-                engine = remember {io.ktor.client.engine.okhttp.OkHttp.create()}
-            )
+            App()
         }
     }
 }
