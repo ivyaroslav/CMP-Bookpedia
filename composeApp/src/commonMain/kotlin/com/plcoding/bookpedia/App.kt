@@ -13,14 +13,24 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import cmp_bookpedia.composeapp.generated.resources.Res
 import cmp_bookpedia.composeapp.generated.resources.compose_multiplatform
+import com.plcoding.bookpedia.book.data.dto.repository.DefaultBookRepository
 import com.plcoding.bookpedia.book.presentation.book_list.BookListScreenRoot
 import com.plcoding.bookpedia.book.presentation.book_list.BookListViewModel
+import com.plcoding.bookpedia.core.data.HttpClientFactory
+import com.plcoding.bookpedia.book.data.dto.network.KtorRemoteBookDataSource
+import io.ktor.client.engine.*
 
 @Composable
 @Preview
-fun App() {
+fun App(engine: HttpClientEngine) {
     BookListScreenRoot(
-        viewModel = remember { BookListViewModel() },
+        viewModel = remember { BookListViewModel(
+            bookRepository = DefaultBookRepository(
+                remoteBookDataSource = KtorRemoteBookDataSource(
+                    httpClient = HttpClientFactory.create(engine)
+                )
+            )
+        ) },
         onBookClick = {
 
         }

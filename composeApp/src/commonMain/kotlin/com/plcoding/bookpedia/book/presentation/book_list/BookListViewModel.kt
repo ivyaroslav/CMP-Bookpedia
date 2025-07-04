@@ -7,6 +7,8 @@ import com.plcoding.bookpedia.book.domain.BookRepository
 import com.plcoding.bookpedia.core.domain.map
 import com.plcoding.bookpedia.core.domain.onError
 import com.plcoding.bookpedia.core.domain.onSuccess
+import com.plcoding.bookpedia.core.presentation.toUitext
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -15,8 +17,19 @@ class BookListViewModel(
     private val bookRepository: BookRepository
 ): ViewModel() {
     private var cachedBooks = emptyList<Book>()
+    private var searchJob: Job? = null
     private val _state = MutableStateFlow(BookListState())
-    val state = _state.asStateFlow()
+    val state = _state
+        .onStart{
+            if(cachedBooks.isEmpty()){
+                observeSearchQuery()
+            }
+        }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000L),
+            _state.value
+        )
 
     fun onAction(action: BookListAction) {
         when (action) {
@@ -48,14 +61,15 @@ class BookListViewModel(
                         ) }
                     }
                     query.length >= 2 -> {
-                        searchBooks(query)
+                        searchJob?.cancel()
+                        searchJob = searchBooks(query)
                     }
                 }
             }
             .launchIn(viewModelScope)
     }
 
-    private fun searchBooks(query: String) {
+    private fun searchBooks(query: String) = viewModelScope.launch {
         _state.update { it.copy(
             isLoading = true,
 
@@ -76,6 +90,8 @@ class BookListViewModel(
                         _state.update {
                             it.copy(
                                 searchResults = emptyList(),
+                                isLoading = false,
+                                errorMessage = error.toUitext()
                             )
                         }
                     }
