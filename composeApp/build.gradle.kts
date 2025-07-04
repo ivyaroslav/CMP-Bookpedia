@@ -127,6 +127,10 @@ dependencies {
     implementation(libs.androidx.ui.text.android)
     implementation(libs.androidx.ui.graphics.android)
     implementation(libs.androidx.ui.android)
+    implementation(libs.androidx.navigation.compose.jvmstubs)
+    implementation(libs.androidx.navigation.compose.android)
+    implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.androidx.navigation.common.android)
     debugImplementation(compose.uiTooling)
 
 
