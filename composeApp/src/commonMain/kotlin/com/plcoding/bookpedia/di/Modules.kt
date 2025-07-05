@@ -11,6 +11,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import com.plcoding.bookpedia.book.presentation.book_list.BookListViewModel
+import com.plcoding.bookpedia.book.presentation.book_list.SelectedBookViewModel
 import org.koin.core.module.Module
 
 expect val platformModule: Module
@@ -20,5 +21,7 @@ val sharedModule = module {
     singleOf(::DefaultBookRepository).bind<BookRepository>()
 
     viewModelOf(::BookListViewModel)
+    viewModelOf(::SelectedBookViewModel)
+
 
 }
