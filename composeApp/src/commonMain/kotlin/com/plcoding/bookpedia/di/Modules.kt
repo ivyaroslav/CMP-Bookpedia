@@ -11,6 +11,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import com.plcoding.bookpedia.book.presentation.book_list.BookListViewModel
+import com.plcoding.bookpedia.book.presentation.book_list.bookDetail.components.BookDetailViewModel
 import com.plcoding.bookpedia.book.presentation.book_list.SelectedBookViewModel
 import org.koin.core.module.Module
 
@@ -22,6 +23,7 @@ val sharedModule = module {
 
     viewModelOf(::BookListViewModel)
     viewModelOf(::SelectedBookViewModel)
+    viewModelOf(::BookDetailViewModel)
 
 
 }

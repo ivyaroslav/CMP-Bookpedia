@@ -26,6 +26,9 @@ import androidx.navigation.toRoute
 import com.plcoding.bookpedia.book.presentation.book_list.BookListScreenRoot
 import com.plcoding.bookpedia.book.presentation.book_list.BookListViewModel
 import com.plcoding.bookpedia.book.presentation.book_list.SelectedBookViewModel
+import com.plcoding.bookpedia.book.presentation.book_list.bookDetail.components.BookDetailAction
+import com.plcoding.bookpedia.book.presentation.book_list.bookDetail.components.BookDetailScreenRoot
+import com.plcoding.bookpedia.book.presentation.book_list.bookDetail.components.BookDetailViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -64,12 +67,20 @@ fun App() {
                 composable<Route.BookDetail> {
                     val selectedBookViewModel = it.sharedKoinViewModel<SelectedBookViewModel>(navController)
                     val selectedBook by selectedBookViewModel.selectedBook.collectAsStateWithLifecycle()
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text("Book detail screen!" + "$")
+                    val viewModel = koinViewModel<BookDetailViewModel>()
+
+                    LaunchedEffect(selectedBook) {
+                        selectedBook?.let {
+                            viewModel.onAction(BookDetailAction.OnSelectedBookChanged(it))
+                        }
+
                     }
+                    BookDetailScreenRoot (
+                        viewModel =viewModel,
+                        onBackClick = {
+                            navController.navigateUp()
+                        }
+                    )
                 }
             }
         }
