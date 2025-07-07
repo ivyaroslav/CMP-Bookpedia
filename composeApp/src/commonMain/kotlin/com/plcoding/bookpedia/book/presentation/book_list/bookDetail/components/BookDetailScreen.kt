@@ -41,6 +41,8 @@ private fun BookDetailScreen(
         },
         modifier = Modifier.fillMaxSize()
     ) {
-
+        if(state.book != null) {
+            Column
+        }
     }
 }
