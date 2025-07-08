@@ -130,6 +130,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose.android)
     implementation(libs.androidx.foundation.layout.android)
     implementation(libs.androidx.navigation.common.android)
+    implementation(libs.androidx.benchmark.macro)
     debugImplementation(compose.uiTooling)
 
 
