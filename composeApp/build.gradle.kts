@@ -131,6 +131,9 @@ dependencies {
     implementation(libs.androidx.foundation.layout.android)
     implementation(libs.androidx.navigation.common.android)
     implementation(libs.androidx.benchmark.macro)
+    implementation(libs.constraintlayout)
+    implementation(libs.androidx.constraintlayout.core)
+    implementation(libs.androidx.sqlite.bundled.android)
     debugImplementation(compose.uiTooling)
 
 

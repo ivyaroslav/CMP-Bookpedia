@@ -1,5 +1,6 @@
 package com.plcoding.bookpedia.di
 
+import com.plcoding.bookpedia.book.data.dto.database.DataBaseFactory
 import io.ktor.client.engine.*
 import io.ktor.client.engine.darwin.*
 import org.koin.core.module.Module
@@ -10,4 +11,5 @@ actual val platformModule: Module
         single<HttpClientEngine> {
             Darwin.create() {}
         }
+
     }

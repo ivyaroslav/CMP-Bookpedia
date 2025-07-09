@@ -46,7 +46,7 @@ class BookDetailViewModel(
                         book = it.book?.copy(
                             description = description
                         ),
-                        isLoading = false,
+                        isLoading = false
                     )
                 } }
         }
