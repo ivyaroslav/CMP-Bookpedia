@@ -47,6 +47,18 @@ class BookListViewModel(
         }
     }
 
+    private fun observeFavoriteBooks() {
+        bookRepository
+            .getFavoriteBooks()
+            .onEach{ favoriteBooks ->
+                _state.update {
+                    it.copy(
+                        favoriteBooks = favoriteBooks
+                    )
+                }
+            }
+            .launchIn(viewModelScope)
+    }
     private fun observeSearchQuery() {
         state
             .map { it.searchQuery }
